@@ -15,6 +15,9 @@
       "*"
     ]
   },
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
   "builders": {
     "react": "3.x",
     "store": "0.x",
