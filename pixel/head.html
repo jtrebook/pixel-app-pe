@@ -1,0 +1,159 @@
+<!-- Customer Care | Reebok pe  -->
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                             CONTACT WIDGET                              -->
+<!-- ----------------------------------------------------------------------- -->
+<style>
+	/* Contact Widget*/
+	/* - Hides Contact Form on First View */
+	#freshworks-container #launcher-frame {
+		display: none !important;
+	}
+
+
+	/* - Mobile Clean Up */
+	@media (min-width: 451px) {
+
+		/* Positon */
+		#freshworks-frame-wrapper {
+			bottom: 10px !important;
+			left: 10px !important;
+		}
+	}
+
+	/* Don't cover Header */
+	@media (max-width: 667px) {
+		#freshworks-frame-wrapper {
+			top: auto !important;
+			height: calc(100% - 75px) !important;
+		}
+	}
+</style>
+
+<script>
+
+	// SETUP
+	/*
+	  * Config Object
+	  * [Contact]
+	  * contactID = [Integer] Contact Form ID (REQUIRED)
+	  * contactTriggerClass = [Selector] Class applied to fire element action
+	  *
+	*/
+	window.blCustomerCareOptions = {
+
+		contactTriggerClass: "vtex-menu-2-x-styledLinkContent--contactWidgetLink",//boton consultas generales
+	};
+
+
+
+	window.initFWSettings = function () {
+		if (!window.fwSettings) {
+			window.fwSettings = {};
+		}
+		window.fwSettings.widget_id = null;
+		if ("function" != typeof window.FreshworksWidget) {
+			var n = function () {
+				n.q.push(arguments);
+			};
+			n.q = [];
+			window.FreshworksWidget = n;
+		}
+	};
+	initFWSettings();
+	function loadWidgetScript(widgetId) {
+		var script = document.createElement("script");
+		script.id = "widgetScript";
+		script.type = "text/javascript";
+		script.src = 'https://widget.freshworks.com/widgets/' + widgetId + '.js';
+		script.defer = true;
+		script.async = true;
+		script.onload = function () {
+			FreshworksWidget("hide", "launcher");
+			FreshworksWidget("open");
+			if (widgetId == 151000004860) {//boton consultas generales
+
+
+				FreshworksWidget("hideChoices", "ticketForm", { type: ["Service Task", "Solicitud de cambio", "Protección de datos", "No Aplica", "Quiebres", "Solicitud de devolución"] });
+				FreshworksWidget('hideChoices', 'ticketForm', { 'cf_submotivo145393': ["Fidelizacion"] });
+				FreshworksWidget("hide", "ticketForm", ["subject", "custom_fields.cf_submotivo933869", "cf_asunto"]);
+
+				FreshworksWidget('hideChoices', 'ticketForm', {
+					'priority': [2],
+					'custom_fields': {
+						'cf_sm_info_envos_pagos_promos': ['Envíos Internacionales', 'Alianza Bancaria', 'Fidelizacion']
+					}
+				});
+
+
+				FreshworksWidget('hideChoices', 'ticketForm', {
+					'priority': [10],
+					'custom_fields': {
+						'cf_sm_otras_consultasproblemas': ['Se rompió con poco uso', 'Faltan Accesorios', 'Cambio Demorado', 'Atención comercial', 'Estado de cambio', 'E-book inexistente', 'No me llegó el token', 'E-book erróneo', 'Incumplimiento de garantía']
+					}
+				});
+
+
+				FreshworksWidget('prefill', 'ticketForm', {
+					subject: "Reebok PE - Formulario de contacto"
+				});
+
+
+
+			}
+
+		};
+		document.body.appendChild(script);
+		window.fwSettings.widget_id = widgetId;
+	}
+	function changeWidgetId(newWidgetId) {
+		var oldScript = document.getElementById("widgetScript");
+		if (oldScript) {
+			FreshworksWidget("destroy");
+			oldScript.onload = null;
+			window.FreshworksWidget = void 0;
+			oldScript.parentNode.removeChild(oldScript);
+		}
+		initFWSettings();
+		loadWidgetScript(newWidgetId);
+	}
+
+
+	// [Actions] Triggers for DOM Interactions
+	var _doc = document;
+	_doc.addEventListener(
+		"click",
+		function (e) {
+			_el = e.target;
+			if (!_el) return;
+
+			// Contact
+			if (
+				_el.classList.contains(
+					window.blCustomerCareOptions.contactTriggerClass
+				) ||
+				_el.title.indexOf(window.blCustomerCareOptions.contactTriggerClass) > -1
+			) {
+				e.preventDefault();
+				changeWidgetId(151000004860);
+				return;
+			}
+			if (
+				_el.classList.contains(window.blCustomerCareOptions.regretTriggerClass) ||
+				_el.title.indexOf(window.blCustomerCareOptions.regretTriggerClass) > -1
+			) {
+				e.preventDefault();
+				changeWidgetId(70000003900);
+				return;
+			}
+		},
+		false
+	);
+
+</script>
+
+
+
+
+
